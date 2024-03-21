@@ -1,20 +1,10 @@
 import { Card } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import Rating from './Rating'
+import { Product } from '../types'
 
 type ProductProps = {
-	product: {
-		_id: string
-		name: string
-		image: string
-		description: string
-		brand: string
-		category: string
-		price: number
-		countInStock: number
-		rating: number
-		numReviews: number
-	}
+	product: Product
 }
 
 const Product = ({ product }: ProductProps) => {
