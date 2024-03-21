@@ -18,10 +18,12 @@
 		"prestart": "yarn build"
 	},
 	"dependencies": {
-		"express": "^4.19.1"
+		"express": "^4.19.1",
+		"mongoose": "^8.2.2"
 	},
 	"devDependencies": {
 		"@types/express": "^4.17.21",
+		"@types/mongoose": "^5.11.97",
 		"@types/node": "^20.11.30",
 		"concurrently": "^8.2.2",
 		"dotenv": "^16.4.5",
