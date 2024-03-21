@@ -8,7 +8,14 @@
 	"license": "MIT",
 	"private": true,
 	"scripts": {
-		"dev:server": "tsx watch backend/server.ts"
+		"start": "node dist/server.js",
+		"dev": "concurrently \"yarn dev:server\" \"yarn dev:client\"",
+		"dev:server": "tsx watch backend/server.ts",
+		"dev:client": "cd frontend && yarn dev",
+		"build": "concurrently \"yarn build:server\" \"yarn build:client\"",
+		"build:server": "rm -rf ./dist && npx tsc",
+		"build:client": "cd frontend && yarn build",
+		"prestart": "yarn build"
 	},
 	"dependencies": {
 		"express": "^4.19.1"
@@ -16,6 +23,7 @@
 	"devDependencies": {
 		"@types/express": "^4.17.21",
 		"@types/node": "^20.11.30",
+		"concurrently": "^8.2.2",
 		"tsx": "^4.7.1",
 		"typescript": "^5.4.3"
 	}
