@@ -1,6 +1,7 @@
 import dotenv from 'dotenv'
 dotenv.config()
 import express from 'express'
+import chalk from 'chalk'
 import products from './data/products'
 import connectDB from './config/db'
 
@@ -23,5 +24,5 @@ app.get('/api/products/:productId', (req, res) => {
 })
 
 app.listen(port, () => {
-	console.log(`Server started at http://localhost:${port}`)
+	console.log(chalk.cyan(`Server started at http://localhost:${port}`))
 })
