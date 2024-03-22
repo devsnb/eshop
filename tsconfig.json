@@ -7,10 +7,10 @@
 		"forceConsistentCasingInFileNames": true,
 		"strict": true,
 		"skipLibCheck": true,
-		"outDir": "./dist",
-		"paths": {
-			"@/*": ["./*"]
-		}
+		"outDir": "./dist"
+	},
+	"ts-node": {
+		"swc": true
 	},
 	"exclude": ["frontend"]
 }

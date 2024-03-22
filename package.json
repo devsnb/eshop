@@ -10,7 +10,7 @@
 	"scripts": {
 		"start": "node dist/server.js",
 		"dev": "concurrently --names \"SERVER,CLIENT\" -c \"blue.bold,green.bold\" \"yarn dev:server\" \"yarn dev:client\"",
-		"dev:server": "ts-node --swc backend/server.ts",
+		"dev:server": "nodemon backend/server.ts",
 		"dev:client": "cd frontend && yarn dev",
 		"build": "concurrently \"yarn build:server\" \"yarn build:client\"",
 		"build:server": "rm -rf ./dist && npx tsc",
@@ -33,6 +33,7 @@
 		"@types/node": "^20.11.30",
 		"concurrently": "^8.2.2",
 		"dotenv": "^16.4.5",
+		"nodemon": "^3.1.0",
 		"ts-node": "^10.9.2",
 		"typescript": "^5.4.3"
 	}
