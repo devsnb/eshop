@@ -5,9 +5,9 @@ import chalk from 'chalk'
 import products from './data/products'
 import connectDB from './config/db'
 
-connectDB()
 const app = express()
 const port = process.env.PORT || 5000
+connectDB()
 
 app.get('/', (req, res) => {
 	res.send('Hello from server')
@@ -24,5 +24,9 @@ app.get('/api/products/:productId', (req, res) => {
 })
 
 app.listen(port, () => {
-	console.log(chalk.cyan(`Server started at http://localhost:${port}`))
+	console.log(
+		chalk.cyan(
+			`Server started at ${chalk.yellow.bold(`http://localhost:${port}`)}`
+		)
+	)
 })
