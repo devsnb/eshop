@@ -4,6 +4,7 @@ import express from 'express'
 import chalk from 'chalk'
 import connectDB from './config/db'
 import productRoutes from './routes/productRoutes'
+import userRoutes from './routes/userRoutes'
 import { errorHandler, notFound } from './middleware/errorMiddleware'
 
 const app = express()
@@ -15,6 +16,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/api/products', productRoutes)
+app.use('/api/users', userRoutes)
 
 app.use(notFound)
 app.use(errorHandler)
