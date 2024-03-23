@@ -1,12 +1,41 @@
 import { Request, Response } from 'express'
 import asyncHandler from '../middleware/asyncHandler'
 import User from '../models/userModel'
+import jwt from 'jsonwebtoken'
 
 /**
  * Authenticates user & gets the access token
  * @route POST /api/users/login
  */
 export const loginUser = asyncHandler(async (req: Request, res: Response) => {
+	const { email, password } = req.body
+
+	const user = await User.findOne({ email })
+
+	if (user && (await user.matchPasswords(password))) {
+		const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET!, {
+			expiresIn: '7d'
+		})
+
+		// set jwt as an http-only cookie
+		res.cookie('jwt', token, {
+			httpOnly: true,
+			secure: process.env.NODE_ENV !== 'development',
+			sameSite: 'strict',
+			maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
+		})
+
+		res.json({
+			_id: user._id,
+			name: user.name,
+			email: user.email,
+			isAdmin: user.isAdmin
+		})
+	} else {
+		res.status(401)
+		throw new Error('Invalid email or password')
+	}
+
 	res.send('login user')
 })
 
@@ -25,7 +54,8 @@ export const registerUser = asyncHandler(
  * @route POST /api/users/logout
  */
 export const logoutUser = asyncHandler(async (req: Request, res: Response) => {
-	res.send('logout user')
+	res.clearCookie('jwt')
+	res.status(200).json({ message: 'Logged out successfully' })
 })
 
 /**

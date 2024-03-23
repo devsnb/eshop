@@ -1,6 +1,22 @@
-import mongoose from 'mongoose'
+import mongoose, { Model } from 'mongoose'
+import bcrypt from 'bcryptjs'
 
-const userSchema = new mongoose.Schema(
+interface IUser {
+	name: string
+	email: string
+	password: string
+	isAdmin: boolean
+	createdAt: Date
+	updatedAt: Date
+}
+
+interface IUserMethods {
+	matchPasswords: (providedPassword: string) => Promise<boolean>
+}
+
+interface UserModel extends Model<IUser, {}, IUserMethods> {}
+
+const userSchema = new mongoose.Schema<IUser, UserModel, IUserMethods>(
 	{
 		name: {
 			type: String,
@@ -25,6 +41,10 @@ const userSchema = new mongoose.Schema(
 		timestamps: true
 	}
 )
+
+userSchema.methods.matchPasswords = async function (providedPassword: string) {
+	return await bcrypt.compare(providedPassword, this.password)
+}
 
 const User = mongoose.model('User', userSchema)
 

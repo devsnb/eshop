@@ -2,6 +2,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 import express from 'express'
 import chalk from 'chalk'
+import cookieParser from 'cookie-parser'
 import connectDB from './config/db'
 import productRoutes from './routes/productRoutes'
 import userRoutes from './routes/userRoutes'
@@ -10,6 +11,17 @@ import { errorHandler, notFound } from './middleware/errorMiddleware'
 const app = express()
 const port = process.env.PORT || 5000
 connectDB()
+
+// parse incoming request body & form data
+app.use(express.json())
+app.use(
+	express.urlencoded({
+		extended: false
+	})
+)
+
+// parse cookie
+app.use(cookieParser())
 
 app.get('/', (req, res) => {
 	res.send('Hello from server')
