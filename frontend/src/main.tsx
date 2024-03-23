@@ -11,6 +11,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import './index.css'
 import HomeScreen from './screens/HomeScreen.tsx'
 import ProductScreen from './screens/ProductScreen.tsx'
+import CartScreen from './screens/CartScreen.tsx'
 
 import store from './store.ts'
 import { Provider } from 'react-redux'
@@ -20,6 +21,7 @@ const router = createBrowserRouter(
 		<Route path='/' element={<App />}>
 			<Route index={true} path='/' element={<HomeScreen />} />
 			<Route path='/product/:id' element={<ProductScreen />} />
+			<Route path='/cart' element={<CartScreen />} />
 		</Route>
 	)
 )

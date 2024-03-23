@@ -1,8 +1,11 @@
 import { LinkContainer } from 'react-router-bootstrap'
-import { Navbar, Nav, Container } from 'react-bootstrap'
+import { useAppSelector } from '../hooks/state-hooks'
+import { Navbar, Nav, Container, Badge } from 'react-bootstrap'
 import { FaShoppingCart, FaUser } from 'react-icons/fa'
 
 const Header = (): JSX.Element => {
+	const { cartItems } = useAppSelector(state => state.cart)
+
 	return (
 		<header>
 			<Navbar bg='dark' variant='dark' expand='lg' collapseOnSelect>
@@ -16,6 +19,11 @@ const Header = (): JSX.Element => {
 							<LinkContainer to='/cart'>
 								<Nav.Link>
 									<FaShoppingCart /> Cart
+									{cartItems.length > 0 && (
+										<Badge pill bg='success' style={{ marginLeft: '5px' }}>
+											{cartItems.reduce((acc, c) => acc + c.qty, 0)}
+										</Badge>
+									)}
 								</Nav.Link>
 							</LinkContainer>
 							<LinkContainer to='/login'>
