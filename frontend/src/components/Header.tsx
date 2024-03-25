@@ -1,13 +1,28 @@
 import { LinkContainer } from 'react-router-bootstrap'
-import { useAppSelector } from '../hooks/state-hooks'
+import { useNavigate } from 'react-router-dom'
+import { useAppSelector, useAppDispatch } from '../hooks/state-hooks'
+import { useLogoutMutation } from '../slices/usersApiSlice'
+import { logout } from '../slices/authSlice'
 import { Navbar, Nav, Container, Badge, NavDropdown } from 'react-bootstrap'
 import { FaShoppingCart, FaUser } from 'react-icons/fa'
 
 const Header = (): JSX.Element => {
 	const { cartItems } = useAppSelector(state => state.cart)
 	const { userInfo } = useAppSelector(state => state.auth)
+	const dispatch = useAppDispatch()
+	const navigate = useNavigate()
 
-	const logoutHandler = () => {}
+	const [logoutApiCall] = useLogoutMutation()
+
+	const logoutHandler = async () => {
+		try {
+			await logoutApiCall().unwrap()
+			dispatch(logout())
+			navigate('/login')
+		} catch (error) {
+			console.error(error)
+		}
+	}
 
 	return (
 		<header>

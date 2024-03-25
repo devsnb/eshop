@@ -8,7 +8,7 @@ type UserInfoType = {
 }
 
 const initialState: {
-	userInfo: UserInfoType
+	userInfo: UserInfoType | null
 } = {
 	userInfo: localStorage.getItem('userInfo')
 		? JSON.parse(localStorage.getItem('userInfo')!)
@@ -28,9 +28,13 @@ const authSlice = createSlice({
 		) => {
 			state.userInfo = action.payload
 			localStorage.setItem('userInfo', JSON.stringify(action.payload))
+		},
+		logout: (state, action: { type: string; payload: void }) => {
+			state.userInfo = null
+			localStorage.removeItem('userInfo')
 		}
 	}
 })
 
-export const { setCredentials } = authSlice.actions
+export const { setCredentials, logout } = authSlice.actions
 export default authSlice.reducer
