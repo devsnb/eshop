@@ -16,6 +16,7 @@ import LoginScreen from './screens/LoginScreen.tsx'
 
 import store from './store.ts'
 import { Provider } from 'react-redux'
+import RegisterScreen from './screens/RegisterScreen.tsx'
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -24,6 +25,7 @@ const router = createBrowserRouter(
 			<Route path='/product/:id' element={<ProductScreen />} />
 			<Route path='/cart' element={<CartScreen />} />
 			<Route path='/login' element={<LoginScreen />} />
+			<Route path='/register' element={<RegisterScreen />} />
 		</Route>
 	)
 )
