@@ -1,15 +1,41 @@
-import { FormEvent, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { FormEvent, useState, useEffect } from 'react'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { Form, Button, Row, Col } from 'react-bootstrap'
+import { toast } from 'react-toastify'
+import { useAppDispatch, useAppSelector } from '../hooks/state-hooks'
 import FormContainer from '../components/FormContainer'
+import Loader from '../components/Loader'
+import { useLoginMutation } from '../slices/usersApiSlice'
+import { setCredentials } from '../slices/authSlice'
 
 const LoginScreen = () => {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
+	const dispatch = useAppDispatch()
+	const navigate = useNavigate()
 
-	const submitHandler = (e: FormEvent<HTMLFormElement>) => {
+	const [login, { isLoading }] = useLoginMutation()
+	const { userInfo } = useAppSelector(state => state.auth)
+
+	const { search } = useLocation()
+	const searchParams = new URLSearchParams(search)
+	const redirect = searchParams.get('redirect') || '/'
+
+	useEffect(() => {
+		if (userInfo) {
+			navigate(redirect)
+		}
+	}, [userInfo, redirect, navigate])
+
+	const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
-		console.log('submit')
+		try {
+			const res = await login({ email, password }).unwrap()
+			dispatch(setCredentials({ ...res }))
+			navigate(redirect)
+		} catch (error: any) {
+			toast.error(error?.data?.message || error?.error)
+		}
 	}
 
 	return (
@@ -34,11 +60,17 @@ const LoginScreen = () => {
 						onChange={e => setPassword(e.target.value)}
 					></Form.Control>
 				</Form.Group>
-				<Button type='submit'>Sign In</Button>
+				<Button type='submit' disabled={isLoading}>
+					Sign In
+				</Button>
+				{isLoading && <Loader />}
 			</Form>
 			<Row className='py-3'>
 				<Col>
-					New Customer? <Link to='/register'>Register</Link>
+					New Customer?{' '}
+					<Link to={redirect ? `/register?redirect${redirect}` : '/register'}>
+						Register
+					</Link>
 				</Col>
 			</Row>
 		</FormContainer>
