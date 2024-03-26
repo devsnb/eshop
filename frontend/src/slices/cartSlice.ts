@@ -6,12 +6,20 @@ export type CartProduct = {
 	qty: number
 } & ProductType
 
+type ShippingAddress = {
+	address: string
+	city: string
+	postalCode: string
+	country: string
+}
+
 export type Cart = {
 	cartItems: CartProduct[]
 	itemsPrice: number
 	shippingPrice: number
 	taxPrice: number
 	totalPrice: number
+	shippingAddress: ShippingAddress | null
 }
 
 const initialState: Cart = localStorage.getItem('cart')
@@ -52,10 +60,21 @@ const cartSlice = createSlice({
 			state.cartItems = state.cartItems.filter(x => x._id !== action.payload)
 
 			updateCart(state)
+		},
+		saveShippingAddress: (
+			state,
+			action: {
+				type: string
+				payload: ShippingAddress
+			}
+		) => {
+			state.shippingAddress = action.payload
+			updateCart(state)
 		}
 	}
 })
 
-export const { addToCart, removeFromCart } = cartSlice.actions
+export const { addToCart, removeFromCart, saveShippingAddress } =
+	cartSlice.actions
 
 export const { reducer: cartSliceReducer } = cartSlice
