@@ -13,6 +13,7 @@ import HomeScreen from './screens/HomeScreen.tsx'
 import ProductScreen from './screens/ProductScreen.tsx'
 import CartScreen from './screens/CartScreen.tsx'
 import LoginScreen from './screens/LoginScreen.tsx'
+import PaymentScreen from './screens/PaymentScreen.tsx'
 
 import store from './store.ts'
 import { Provider } from 'react-redux'
@@ -30,6 +31,7 @@ const router = createBrowserRouter(
 			<Route path='/register' element={<RegisterScreen />} />
 			<Route path='' element={<PrivateRoute />}>
 				<Route path='/shipping' element={<ShippingScreen />} />
+				<Route path='/payment' element={<PaymentScreen />} />
 			</Route>
 		</Route>
 	)

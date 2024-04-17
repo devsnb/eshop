@@ -20,6 +20,7 @@ export type Cart = {
 	taxPrice: number
 	totalPrice: number
 	shippingAddress: ShippingAddress | null
+	paymentMethod: string
 }
 
 const initialState: Cart = localStorage.getItem('cart')
@@ -70,11 +71,25 @@ const cartSlice = createSlice({
 		) => {
 			state.shippingAddress = action.payload
 			updateCart(state)
+		},
+		savePaymentMethod: (
+			state,
+			action: {
+				type: string
+				payload: string
+			}
+		) => {
+			state.paymentMethod = action.payload
+			updateCart(state)
 		}
 	}
 })
 
-export const { addToCart, removeFromCart, saveShippingAddress } =
-	cartSlice.actions
+export const {
+	addToCart,
+	removeFromCart,
+	saveShippingAddress,
+	savePaymentMethod
+} = cartSlice.actions
 
 export const { reducer: cartSliceReducer } = cartSlice
