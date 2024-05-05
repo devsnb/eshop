@@ -14,7 +14,7 @@ const router = express.Router()
 router.route('/').post(protect, addOrderItems).get(protect, admin, getOrders)
 router.route('/mine').get(protect, getMyOrders)
 router.route('/:orderId').get(protect, getOrderById)
-router.route('/:orderId/pay').put(protect, updateOderToPaid)
+router.route('/:orderId/pay').post(protect, updateOderToPaid)
 router.route('/:orderId/deliver').put(protect, admin, updateOrderToDelivered)
 
 export default router
