@@ -46,7 +46,7 @@ const PlaceOrderScreen = () => {
 			}).unwrap()
 
 			dispatch(clearCartItems())
-			navigate(`/orders/${res._id}`)
+			navigate(`/order/${res._id}`)
 		} catch (error: any) {
 			toast.error(error)
 		}
@@ -79,7 +79,7 @@ const PlaceOrderScreen = () => {
 								<Message>Your cart is empty</Message>
 							) : (
 								<ListGroup variant='flush'>
-									{cartItems.map((item, index) => (
+									{cartItems.map((item, index: number) => (
 										<ListGroup.Item key={index}>
 											<Row>
 												<Col md={1}>
