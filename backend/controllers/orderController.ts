@@ -113,9 +113,10 @@ export const updateOrderToDelivered = asyncHandler(
 )
 
 /**
- * Update the order status to delivered
+ * Get All Orders
  * @route GET /api/orders
  */
 export const getOrders = asyncHandler(async (req: Request, res: Response) => {
-	res.send('get all orders')
+	const orders = await Order.find({}).populate('user', 'id name')
+	res.status(200).json(orders)
 })
