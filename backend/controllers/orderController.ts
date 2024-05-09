@@ -108,7 +108,19 @@ export const updateOderToPaid = asyncHandler(
  */
 export const updateOrderToDelivered = asyncHandler(
 	async (req: Request, res: Response) => {
-		res.send('update order to delivered')
+		const order = await Order.findById(req.params.orderId)
+
+		if (order) {
+			order.isDelivered = true
+			order.deliveredAt = new Date()
+
+			const updatedOrder = await order.save()
+
+			res.status(200).json(updatedOrder)
+		} else {
+			res.status(404)
+			throw new Error('Order not found')
+		}
 	}
 )
 
