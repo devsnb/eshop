@@ -3,7 +3,8 @@ import {
 	getProducts,
 	getProductById,
 	createProduct,
-	updateProduct
+	updateProduct,
+	deleteProduct
 } from '../controllers/productController'
 import { protect, admin } from '../middleware/authMiddleware'
 
@@ -15,5 +16,6 @@ router
 	.route('/:productId')
 	.get(getProductById)
 	.put(protect, admin, updateProduct)
+	.delete(protect, admin, deleteProduct)
 
 export default router
