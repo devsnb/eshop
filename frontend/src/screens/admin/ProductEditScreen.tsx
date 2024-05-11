@@ -1,4 +1,4 @@
-import { useState, useEffect, FormEvent } from 'react'
+import { useState, useEffect, FormEvent, ChangeEvent } from 'react'
 import { Link, useNavigate, useNavigation, useParams } from 'react-router-dom'
 import { Form, Button } from 'react-bootstrap'
 import Message from '../../components/Message'
@@ -7,7 +7,8 @@ import FormContainer from '../../components/FormContainer'
 import { toast } from 'react-toastify'
 import {
 	useUpdateProductMutation,
-	useGetProductDetailsQuery
+	useGetProductDetailsQuery,
+	useUploadProductImageMutation
 } from '../../slices/productApiSlice'
 
 const ProductEditScreen = () => {
@@ -29,6 +30,9 @@ const ProductEditScreen = () => {
 
 	const [updateProduct, { isLoading: loadingUpdate }] =
 		useUpdateProductMutation()
+
+	const [uploadProductImage, { isLoading: loadingUpload }] =
+		useUploadProductImageMutation()
 
 	const navigate = useNavigate()
 
@@ -70,6 +74,23 @@ const ProductEditScreen = () => {
 		}
 	}
 
+	const uploadFileHandler = async (e: ChangeEvent<HTMLInputElement>) => {
+		console.log(e.target?.files)
+
+		let files = e.target?.files
+
+		const formData = new FormData()
+		formData.append('image', files![0])
+
+		try {
+			const res = await uploadProductImage(formData).unwrap()
+			toast.success(res.message)
+			setImage(res.image)
+		} catch (error) {
+			toast.error('Image upload failed!')
+		}
+	}
+
 	return (
 		<>
 			<Link to='/admin/productlist' className='btn btn-light my-3'>
@@ -103,7 +124,20 @@ const ProductEditScreen = () => {
 							/>
 						</Form.Group>
 
-						{/* Image Input Placeholder */}
+						<Form.Group controlId='image' className='my-2'>
+							<Form.Label>Image</Form.Label>
+							<Form.Control
+								type='text'
+								placeholder='Enter image url'
+								value={image}
+								onChange={e => setImage}
+							/>
+							<Form.Control
+								type='file'
+								aria-label='Choose file'
+								onChange={uploadFileHandler}
+							/>
+						</Form.Group>
 
 						<Form.Group controlId='brand' className='my-2'>
 							<Form.Label>Brand</Form.Label>

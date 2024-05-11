@@ -50,7 +50,7 @@ export const createProduct = asyncHandler(
 
 		const createdProduct = await product.save()
 
-		res.status(201).json(createProduct)
+		res.status(201).json(createdProduct)
 	}
 )
 
