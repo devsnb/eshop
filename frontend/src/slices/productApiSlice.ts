@@ -14,9 +14,16 @@ type UpdateProductParm = {
 
 export const productApiSlice = apiSlice.injectEndpoints({
 	endpoints: builder => ({
-		getProducts: builder.query<ProductType[], void>({
-			query: () => ({
-				url: PRODUCTS_URL
+		getProducts: builder.query<
+			{ products: ProductType[]; page: number; pages: number },
+			{ pageNumber?: number; keyword?: string }
+		>({
+			query: ({ pageNumber, keyword }) => ({
+				url: PRODUCTS_URL,
+				params: {
+					keyword,
+					pageNum: pageNumber
+				}
 			}),
 			providesTags: ['Product'],
 			keepUnusedDataFor: 5

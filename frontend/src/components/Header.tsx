@@ -5,6 +5,7 @@ import { useLogoutMutation } from '../slices/usersApiSlice'
 import { logout } from '../slices/authSlice'
 import { Navbar, Nav, Container, Badge, NavDropdown } from 'react-bootstrap'
 import { FaShoppingCart, FaUser } from 'react-icons/fa'
+import SearchBox from './SearchBox'
 
 const Header = (): JSX.Element => {
 	const { cartItems } = useAppSelector(state => state.cart)
@@ -34,6 +35,7 @@ const Header = (): JSX.Element => {
 					<Navbar.Toggle aria-controls='basic-navbar-nav' />
 					<Navbar.Collapse id='basic-navbar-nav'>
 						<Nav className='ms-auto'>
+							<SearchBox />
 							<LinkContainer to='/cart'>
 								<Nav.Link>
 									<FaShoppingCart /> Cart
