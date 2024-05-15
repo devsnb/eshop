@@ -4,7 +4,7 @@ import {
 	addOrderItems,
 	getMyOrders,
 	getOrderById,
-	updateOderToPaid,
+	updateOrderToPaid,
 	updateOrderToDelivered
 } from '../controllers/orderController'
 import { admin, protect } from '../middleware/authMiddleware'
@@ -19,7 +19,7 @@ router
 	.get(protect, checkObjectId({ id: 'orderId' }), getOrderById)
 router
 	.route('/:orderId/pay')
-	.post(protect, checkObjectId({ id: 'orderId' }), updateOderToPaid)
+	.post(protect, checkObjectId({ id: 'orderId' }), updateOrderToPaid)
 router
 	.route('/:orderId/deliver')
 	.put(protect, admin, checkObjectId({ id: 'orderId' }), updateOrderToDelivered)

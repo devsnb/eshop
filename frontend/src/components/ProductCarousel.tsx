@@ -7,8 +7,6 @@ import { useGetTopProductsQuery } from '../slices/productApiSlice'
 const ProductCarousel = () => {
 	const { data: products, isLoading, error } = useGetTopProductsQuery()
 
-	console.log(products)
-
 	return isLoading ? (
 		<Loader />
 	) : error ? (
