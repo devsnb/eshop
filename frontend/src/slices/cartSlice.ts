@@ -84,7 +84,7 @@ const cartSlice = createSlice({
 		},
 		clearCartItems: (
 			state,
-			action: {
+			_: {
 				type: string
 				payload: void
 			}
@@ -92,14 +92,8 @@ const cartSlice = createSlice({
 			state.cartItems = []
 			updateCart(state)
 		},
-		resetCart: (
-			state,
-			action: {
-				type: string
-				payload: void
-			}
-		) => {
-			state = initialState
+		resetCart: _ => {
+			_ = initialState
 		}
 	}
 })

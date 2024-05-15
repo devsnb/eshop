@@ -17,6 +17,9 @@
 		"build:client": "cd frontend && yarn build",
 		"data:import": "ts-node backend/seeder.ts",
 		"data:destroy": "ts-node backend/seeder.ts -d",
+		"prebuild:server": "yarn install",
+		"prebuild:client": "cd frontend && yarn install",
+		"prebuild": "yarn prebuild:server && yarn prebuild:client",
 		"prestart": "yarn build"
 	},
 	"dependencies": {
