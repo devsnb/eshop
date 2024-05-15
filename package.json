@@ -9,18 +9,18 @@
 	"private": true,
 	"scripts": {
 		"start": "node dist/server.js",
-		"dev": "concurrently --names \"SERVER,CLIENT\" -c \"blue.bold,green.bold\" \"yarn dev:server\" \"yarn dev:client\"",
+		"dev": "concurrently --names \"SERVER,CLIENT\" -c \"blue.bold,green.bold\" \"npm run dev:server\" \"npm run dev:client\"",
 		"dev:server": "nodemon backend/server.ts",
-		"dev:client": "cd frontend && yarn dev",
-		"build": "yarn build:server && yarn build:client",
-		"build:server": "yarn tsc",
-		"build:client": "cd frontend && yarn build",
+		"dev:client": "cd frontend && npm run dev",
+		"build": "npm run build:server && npm run build:client",
+		"build:server": "npx tsc",
+		"build:client": "cd frontend && npm run build",
 		"data:import": "ts-node backend/seeder.ts",
 		"data:destroy": "ts-node backend/seeder.ts -d",
-		"prebuild:server": "yarn install",
-		"prebuild:client": "cd frontend && yarn install",
-		"prebuild": "yarn prebuild:server && yarn prebuild:client",
-		"prestart": "yarn build"
+		"prebuild:server": "npm install",
+		"prebuild:client": "cd frontend && npm install",
+		"prebuild": "npm run prebuild:server && npm run prebuild:client",
+		"prestart": "npm run build"
 	},
 	"dependencies": {
 		"bcryptjs": "^2.4.3",
@@ -29,8 +29,7 @@
 		"express": "^4.19.1",
 		"jsonwebtoken": "^9.0.2",
 		"mongoose": "^8.2.2",
-		"multer": "^1.4.5-lts.1",
-		"typescript": "^5.4.3"
+		"multer": "^1.4.5-lts.1"
 	},
 	"devDependencies": {
 		"@swc/core": "^1.4.8",
@@ -44,6 +43,7 @@
 		"concurrently": "^8.2.2",
 		"dotenv": "^16.4.5",
 		"nodemon": "^3.1.0",
-		"ts-node": "^10.9.2"
+		"ts-node": "^10.9.2",
+		"typescript": "^5.4.3"
 	}
 }
