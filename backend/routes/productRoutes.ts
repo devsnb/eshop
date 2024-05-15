@@ -5,13 +5,16 @@ import {
 	createProduct,
 	updateProduct,
 	deleteProduct,
-	createProductReview
+	createProductReview,
+	getTopProducts
 } from '../controllers/productController'
 import { protect, admin } from '../middleware/authMiddleware'
 
 const router = express.Router()
 
 router.route('/').get(getProducts).post(protect, admin, createProduct)
+
+router.get('/top', getTopProducts)
 
 router
 	.route('/:productId')
