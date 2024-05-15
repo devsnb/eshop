@@ -12,7 +12,7 @@
 		"dev": "concurrently --names \"SERVER,CLIENT\" -c \"blue.bold,green.bold\" \"yarn dev:server\" \"yarn dev:client\"",
 		"dev:server": "nodemon backend/server.ts",
 		"dev:client": "cd frontend && yarn dev",
-		"build": "concurrently \"yarn build:server\" \"yarn build:client\"",
+		"build": "yarn build:server && yarn build:client",
 		"build:server": "rm -rf ./dist && npx tsc",
 		"build:client": "cd frontend && yarn build",
 		"data:import": "ts-node backend/seeder.ts",
