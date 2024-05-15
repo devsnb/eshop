@@ -6,6 +6,7 @@ import { logout } from '../slices/authSlice'
 import { Navbar, Nav, Container, Badge, NavDropdown } from 'react-bootstrap'
 import { FaShoppingCart, FaUser } from 'react-icons/fa'
 import SearchBox from './SearchBox'
+import { resetCart } from '../slices/cartSlice'
 
 const Header = (): JSX.Element => {
 	const { cartItems } = useAppSelector(state => state.cart)
@@ -19,6 +20,7 @@ const Header = (): JSX.Element => {
 		try {
 			await logoutApiCall().unwrap()
 			dispatch(logout())
+			dispatch(resetCart())
 			navigate('/login')
 		} catch (error) {
 			console.error(error)
