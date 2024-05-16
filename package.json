@@ -13,7 +13,7 @@
 		"dev:server": "nodemon backend/server.ts",
 		"dev:client": "cd frontend && npm run dev",
 		"build": "npm run build:server && npm run build:client",
-		"build:server": "npx tsc",
+		"build:server": "tsc",
 		"build:client": "cd frontend && npm run build",
 		"data:import": "ts-node backend/seeder.ts",
 		"data:destroy": "ts-node backend/seeder.ts -d",
@@ -29,8 +29,7 @@
 		"express": "^4.19.1",
 		"jsonwebtoken": "^9.0.2",
 		"mongoose": "^8.2.2",
-		"multer": "^1.4.5-lts.1",
-		"typescript": "^5.4.3"
+		"multer": "^1.4.5-lts.1"
 	},
 	"devDependencies": {
 		"@swc/core": "^1.4.8",
@@ -44,6 +43,7 @@
 		"concurrently": "^8.2.2",
 		"dotenv": "^16.4.5",
 		"nodemon": "^3.1.0",
-		"ts-node": "^10.9.2"
+		"ts-node": "^10.9.2",
+		"typescript": "^5.4.3"
 	}
 }

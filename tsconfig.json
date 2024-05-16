@@ -9,10 +9,12 @@
 		"skipLibCheck": true,
 		"outDir": "./dist",
 		"noEmit": false,
-		"noEmitOnError": false
+		"noEmitOnError": false,
+		"noImplicitAny": false
 	},
 	"ts-node": {
-		"swc": true
+		"swc": true,
+		"transpileOnly": true
 	},
 	"exclude": ["frontend"]
 }
