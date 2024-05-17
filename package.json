@@ -9,18 +9,17 @@
 	"private": true,
 	"scripts": {
 		"start": "node dist/server.js",
-		"dev": "concurrently --names \"SERVER,CLIENT\" -c \"blue.bold,green.bold\" \"npm run dev:server\" \"npm run dev:client\"",
-		"dev:server": "nodemon backend/server.ts",
-		"dev:client": "cd frontend && npm run dev",
-		"build": "npm run build:server && npm run build:client",
-		"build:server": "tsc",
-		"build:client": "cd frontend && npm run build",
+		"dev": "concurrently --names \"SERVER,CLIENT\" -c \"blue.bold,green.bold\" \"npm run server:dev\" \"npm run client:dev\"",
+		"server:dev": "nodemon backend/server.ts",
+		"client:dev": "cd frontend && npm run dev",
+		"build": "npm run server:build && npm run client:build",
+		"server:build": "tsc",
+		"client:build": "cd frontend && npm run build",
 		"data:import": "ts-node backend/seeder.ts",
 		"data:destroy": "ts-node backend/seeder.ts -d",
-		"prebuild:server": "npm install",
-		"prebuild:client": "cd frontend && npm install",
-		"prebuild": "npm run prebuild:server && npm run prebuild:client",
-		"prestart": "npm run build"
+		"server:install": "npm install",
+		"client:install": "cd frontend && npm install",
+		"prestart": "npm run server:build && npm run client:build"
 	},
 	"dependencies": {
 		"bcryptjs": "^2.4.3",
