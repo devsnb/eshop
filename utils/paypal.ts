@@ -1,7 +1,8 @@
-import dotenv from 'dotenv'
+import config from '../config'
 import { Model } from 'mongoose'
-dotenv.config()
-const { PAYPAL_CLIENT_ID, PAYPAL_APP_SECRET, PAYPAL_API_URL } = process.env
+const PAYPAL_CLIENT_ID = config.get('paypal.clientId')
+const PAYPAL_APP_SECRET = config.get('paypal.appSecret')
+const PAYPAL_API_URL = config.get('paypal.appUrl')
 
 /**
  * Fetches an access token from the PayPal API.

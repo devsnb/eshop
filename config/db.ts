@@ -1,12 +1,15 @@
 import mongoose from 'mongoose'
-import chalk from 'chalk'
+import config from '../config'
+import pico from 'picocolors'
 
 const connectDB = async () => {
 	try {
-		const conn = await mongoose.connect(process.env.MONGO_URI!)
-		console.log(chalk.cyanBright(`MongoDB Connected: ${conn.connection.host}`))
+		console.log(config.get('databaseUrl'))
+		const conn = await mongoose.connect(config.get('databaseUrl'))
+		console.log(pico.cyan(`Connected to DB Cluster: ${conn.connection.host}`))
+		return conn.connection
 	} catch (error: any) {
-		console.error(chalk.red(`Error: ${error.message}`))
+		console.error(pico.red(`Error: ${error.message}`))
 		process.exit(1)
 	}
 }

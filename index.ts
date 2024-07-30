@@ -1,15 +1,18 @@
-import chalk from 'chalk'
+import pico from 'picocolors'
+import config from './config'
 import app from './server'
 import connectDB from './config/db'
 
-const port = process.env.PORT || 5000
+const port = config.get('port')
 
 const main = async () => {
 	await connectDB()
 	app.listen(port, () => {
 		console.log(
-			chalk.cyan(
-				`Server started at ${chalk.yellow.bold(`http://localhost:${port}`)}`
+			pico.cyan(
+				`Server started at ${pico.bold(
+					pico.yellow(`http://localhost:${port}`)
+				)}`
 			)
 		)
 	})

@@ -1,9 +1,7 @@
 import path from 'node:path'
-import dotenv from 'dotenv'
-dotenv.config()
 import express from 'express'
 import cookieParser from 'cookie-parser'
-import connectDB from './config/db'
+import config from './config'
 import productRoutes from './routes/productRoutes'
 import userRoutes from './routes/userRoutes'
 import orderRoutes from './routes/orderRoutes'
@@ -11,8 +9,6 @@ import uploadRoutes from './routes/uploadRoutes'
 import { errorHandler, notFound } from './middleware/errorMiddleware'
 
 const app = express()
-
-connectDB()
 
 // parse incoming request body & form data
 app.use(express.json())
@@ -31,15 +27,13 @@ app.use('/api/orders', orderRoutes)
 app.use('/api/upload', uploadRoutes)
 
 app.get('/api/config/paypal', (req, res) =>
-	res.send({ clientId: process.env.PAYPAL_CLIENT_ID })
+	res.send({ clientId: config.get('paypal.clientId') })
 )
 
 app.use('/uploads', express.static(path.join(__dirname, '../', 'uploads')))
 
-if (process.env.NODE_ENV === 'production') {
+if (config.get('env') === 'production') {
 	app.use(express.static(path.join(__dirname, '..', '/client/dist')))
-
-	console.log(path.resolve(__dirname, 'client', 'dist', 'index.html'))
 
 	app.get('*', (req, res) =>
 		res.sendFile(path.resolve(__dirname, '..', 'client', 'dist', 'index.html'))
