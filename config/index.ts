@@ -42,6 +42,13 @@ const config = convict({
 			default: 'a-public-key',
 			nullable: false,
 			env: 'JWT_PUBLIC_KEY'
+		},
+		expiry: {
+			doc: 'Public RSA key to verify the jwt, must be base64 encoded',
+			format: Number,
+			default: 604800000, // 7-days
+			nullable: false,
+			env: 'JWT_EXPIRY'
 		}
 	},
 	paypal: {
@@ -69,7 +76,7 @@ const config = convict({
 	},
 	log: {
 		level: {
-			doc: 'Paypal App Url',
+			doc: 'Application Log Level',
 			format: logLevels,
 			default: 'info',
 			nullable: false,
