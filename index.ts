@@ -1,6 +1,6 @@
 import pico from 'picocolors'
 import config from './config'
-import app from './server'
+import app from './app'
 import connectDB from './config/db'
 
 const port = config.get('port')
