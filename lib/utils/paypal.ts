@@ -1,4 +1,4 @@
-import config from '../config'
+import config from '../../config'
 import { Model } from 'mongoose'
 const PAYPAL_CLIENT_ID = config.get('paypal.clientId')
 const PAYPAL_APP_SECRET = config.get('paypal.appSecret')

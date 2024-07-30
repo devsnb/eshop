@@ -2,10 +2,7 @@ import path from 'node:path'
 import express from 'express'
 import cookieParser from 'cookie-parser'
 import config from './config'
-import productRoutes from './routes/productRoutes'
-import userRoutes from './routes/userRoutes'
-import orderRoutes from './routes/orderRoutes'
-import uploadRoutes from './routes/uploadRoutes'
+import router from './routes'
 import { errorHandler, notFound } from './middleware/errorMiddleware'
 
 const app = express()
@@ -21,10 +18,8 @@ app.use(
 // parse cookie
 app.use(cookieParser())
 
-app.use('/api/products', productRoutes)
-app.use('/api/users', userRoutes)
-app.use('/api/orders', orderRoutes)
-app.use('/api/upload', uploadRoutes)
+// register router
+app.use('/', router)
 
 app.get('/api/config/paypal', (req, res) =>
 	res.send({ clientId: config.get('paypal.clientId') })

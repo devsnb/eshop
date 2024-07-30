@@ -10,18 +10,25 @@ import {
 import { admin, protect } from '../middleware/authMiddleware'
 import checkObjectId from '../middleware/checkObjectId'
 
-const router = express.Router()
+const orderRouter = express.Router()
 
-router.route('/').post(protect, addOrderItems).get(protect, admin, getOrders)
-router.route('/mine').get(protect, getMyOrders)
-router
+orderRouter
+	.route('/')
+	.post(protect, addOrderItems)
+	.get(protect, admin, getOrders)
+
+orderRouter.route('/mine').get(protect, getMyOrders)
+
+orderRouter
 	.route('/:orderId')
 	.get(protect, checkObjectId({ id: 'orderId' }), getOrderById)
-router
+
+orderRouter
 	.route('/:orderId/pay')
 	.post(protect, checkObjectId({ id: 'orderId' }), updateOrderToPaid)
-router
+
+orderRouter
 	.route('/:orderId/deliver')
 	.put(protect, admin, checkObjectId({ id: 'orderId' }), updateOrderToDelivered)
 
-export default router
+export default orderRouter

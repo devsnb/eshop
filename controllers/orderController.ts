@@ -2,8 +2,8 @@ import { Request, Response } from 'express'
 import asyncHandler from '../middleware/asyncHandler'
 import Order from '../models/orderModel'
 import Product from '../models/productModel'
-import { calcPrices } from '../utils/calcPrices'
-import { verifyPayPalPayment, checkIfNewTransaction } from '../utils/paypal'
+import { calcPrices } from '../lib/utils/calcPrices'
+import { verifyPayPalPayment, checkIfNewTransaction } from '../lib/utils/paypal'
 
 /**
  * Create new order

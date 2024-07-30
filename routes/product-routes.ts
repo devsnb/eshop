@@ -11,20 +11,20 @@ import {
 import { protect, admin } from '../middleware/authMiddleware'
 import checkObjectId from '../middleware/checkObjectId'
 
-const router = express.Router()
+const productRouter = express.Router()
 
-router.route('/').get(getProducts).post(protect, admin, createProduct)
+productRouter.route('/').get(getProducts).post(protect, admin, createProduct)
 
-router.get('/top', getTopProducts)
+productRouter.get('/top', getTopProducts)
 
-router
+productRouter
 	.route('/:productId')
 	.get(checkObjectId({ id: 'productId' }), getProductById)
 	.put(protect, admin, checkObjectId({ id: 'productId' }), updateProduct)
 	.delete(protect, admin, checkObjectId({ id: 'productId' }), deleteProduct)
 
-router
+productRouter
 	.route('/:productId/reviews')
 	.post(protect, checkObjectId({ id: 'productId' }), createProductReview)
 
-export default router
+export default productRouter

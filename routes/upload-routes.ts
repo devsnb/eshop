@@ -37,11 +37,12 @@ const upload = multer({
 	storage,
 	fileFilter: fileFilter
 })
+
 const uploadSingleImage = upload.single('image')
 
-const router = express.Router()
+const uploadRouter = express.Router()
 
-router.post('/', (req, res) => {
+uploadRouter.post('/', (req, res) => {
 	uploadSingleImage(req, res, function (err) {
 		if (err) {
 			res.status(400).send({ message: err.message })
@@ -54,4 +55,4 @@ router.post('/', (req, res) => {
 	})
 })
 
-export default router
+export default uploadRouter

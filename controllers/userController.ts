@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import asyncHandler from '../middleware/asyncHandler'
 import User from '../models/userModel'
-import generateToken from '../utils/generateToken'
+import generateToken from '../lib/utils/generateToken'
 
 /**
  * Authenticates user & gets the access token
