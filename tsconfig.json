@@ -16,5 +16,5 @@
 		"swc": true,
 		"transpileOnly": true
 	},
-	"exclude": ["frontend"]
+	"exclude": ["client"]
 }

@@ -8,17 +8,17 @@
 	"license": "MIT",
 	"private": true,
 	"scripts": {
-		"start": "node dist/server.js",
+		"start": "node dist/index.js",
 		"dev": "concurrently --names \"SERVER,CLIENT\" -c \"blue.bold,green.bold\" \"npm run server:dev\" \"npm run client:dev\"",
-		"server:dev": "nodemon backend/server.ts",
-		"client:dev": "cd frontend && npm run dev",
+		"server:dev": "nodemon index.ts",
+		"client:dev": "cd client && npm run dev",
 		"build": "npm run server:build && npm run client:build",
 		"server:build": "tsc",
-		"client:build": "cd frontend && npm run build",
-		"data:import": "ts-node backend/seeder.ts",
-		"data:destroy": "ts-node backend/seeder.ts -d",
+		"client:build": "cd client && npm run build",
+		"data:import": "ts-node seeder.ts",
+		"data:destroy": "ts-node seeder.ts -d",
 		"server:install": "npm install",
-		"client:install": "cd frontend && npm install",
+		"client:install": "cd client && npm install",
 		"prestart": "npm run server:build && npm run client:build"
 	},
 	"dependencies": {
@@ -42,6 +42,7 @@
 		"concurrently": "^8.2.2",
 		"dotenv": "^16.4.5",
 		"nodemon": "^3.1.0",
+		"prisma": "^5.17.0",
 		"ts-node": "^10.9.2",
 		"typescript": "^5.4.3"
 	}

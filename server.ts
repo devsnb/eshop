@@ -2,7 +2,6 @@ import path from 'node:path'
 import dotenv from 'dotenv'
 dotenv.config()
 import express from 'express'
-import chalk from 'chalk'
 import cookieParser from 'cookie-parser'
 import connectDB from './config/db'
 import productRoutes from './routes/productRoutes'
@@ -12,7 +11,7 @@ import uploadRoutes from './routes/uploadRoutes'
 import { errorHandler, notFound } from './middleware/errorMiddleware'
 
 const app = express()
-const port = process.env.PORT || 5000
+
 connectDB()
 
 // parse incoming request body & form data
@@ -38,10 +37,12 @@ app.get('/api/config/paypal', (req, res) =>
 app.use('/uploads', express.static(path.join(__dirname, '../', 'uploads')))
 
 if (process.env.NODE_ENV === 'production') {
-	app.use(express.static(path.join(__dirname, '..', '/frontend/dist')))
+	app.use(express.static(path.join(__dirname, '..', '/client/dist')))
+
+	console.log(path.resolve(__dirname, 'client', 'dist', 'index.html'))
 
 	app.get('*', (req, res) =>
-		res.sendFile(path.resolve(__dirname, 'frontend', 'dist', 'index.html'))
+		res.sendFile(path.resolve(__dirname, '..', 'client', 'dist', 'index.html'))
 	)
 } else {
 	app.get('/', (req, res) => {
@@ -52,10 +53,4 @@ if (process.env.NODE_ENV === 'production') {
 app.use(notFound)
 app.use(errorHandler)
 
-app.listen(port, () => {
-	console.log(
-		chalk.cyan(
-			`Server started at ${chalk.yellow.bold(`http://localhost:${port}`)}`
-		)
-	)
-})
+export default app
