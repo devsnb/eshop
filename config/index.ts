@@ -5,6 +5,8 @@ import 'dotenv/config'
 // application environments
 const environments = ['production', 'development', 'test']
 
+const logLevels = ['error', 'warn', 'info', 'http', 'verbose', 'debug', 'silly']
+
 const config = convict({
 	env: {
 		doc: 'The application environment.',
@@ -63,6 +65,15 @@ const config = convict({
 			default: 'paypal-app-url',
 			nullable: false,
 			env: 'PAYPAL_API_URL'
+		}
+	},
+	log: {
+		level: {
+			doc: 'Paypal App Url',
+			format: logLevels,
+			default: 'info',
+			nullable: false,
+			env: 'LOG_LEVEL'
 		}
 	}
 })

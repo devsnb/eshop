@@ -1,14 +1,15 @@
 import mongoose from 'mongoose'
 import config from '../config'
-import pico from 'picocolors'
+import logger from '../lib/common/logger'
 
 const connectDB = async () => {
 	try {
 		const conn = await mongoose.connect(config.get('databaseUrl'))
-		console.log(pico.cyan(`Connected to DB Cluster: ${conn.connection.host}`))
+		logger.info(`Connected to DB Cluster: ${conn.connection.host}`)
 		return conn.connection
 	} catch (error: any) {
-		console.error(pico.red(`Error: ${error.message}`))
+		logger.error(`Error: ${error.message}`)
+		logger.error('Database Connection Failed. Process exiting')
 		process.exit(1)
 	}
 }
