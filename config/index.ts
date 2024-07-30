@@ -57,12 +57,12 @@ const config = convict({
 			nullable: false,
 			env: 'PAYPAL_APP_SECRET'
 		},
-		appUrl: {
+		apiUrl: {
 			doc: 'Paypal App Url',
 			format: String,
 			default: 'paypal-app-url',
 			nullable: false,
-			env: 'PAYPAL_APP_URL'
+			env: 'PAYPAL_API_URL'
 		}
 	}
 })

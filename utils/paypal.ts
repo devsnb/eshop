@@ -2,7 +2,7 @@ import config from '../config'
 import { Model } from 'mongoose'
 const PAYPAL_CLIENT_ID = config.get('paypal.clientId')
 const PAYPAL_APP_SECRET = config.get('paypal.appSecret')
-const PAYPAL_API_URL = config.get('paypal.appUrl')
+const PAYPAL_API_URL = config.get('paypal.apiUrl')
 
 /**
  * Fetches an access token from the PayPal API.

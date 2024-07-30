@@ -4,7 +4,6 @@ import pico from 'picocolors'
 
 const connectDB = async () => {
 	try {
-		console.log(config.get('databaseUrl'))
 		const conn = await mongoose.connect(config.get('databaseUrl'))
 		console.log(pico.cyan(`Connected to DB Cluster: ${conn.connection.host}`))
 		return conn.connection
